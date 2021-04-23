@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.service;
 
 import java.util.List;
 
+import com.laptrinhjavaweb.Pageble.Pageble;
 import com.laptrinhjavaweb.model.News;
 
 public interface INewsService {
@@ -10,7 +11,7 @@ public interface INewsService {
 	News update(News news);
 	void delete(Long[] ids);
 
-	List<News>  findAllNews( Integer offSet, Integer limit);
+	List<News>  findAllNews( Pageble pageble);
 	List<News>  findNBy(String filed, Object... objects);
 	int getTotalItem();
 }

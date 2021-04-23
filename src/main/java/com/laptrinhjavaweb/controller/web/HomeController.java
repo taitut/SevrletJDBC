@@ -38,7 +38,7 @@ public class HomeController extends HttpServlet {
 		//request.setAttribute("test",newsService.findNBy(a,b));
 		
 //		request.setAttribute("find",newsService.findByCategoryId(categoryId));
-		request.setAttribute("news",newsService.findAllNews(0,9));
+//		request.setAttribute("news",newsService.findAllNews(0,9));
 		request.setAttribute("categorys", categoryService.findAll());
 		
 		RequestDispatcher rd =  request.getRequestDispatcher("/views/web/home.jsp");

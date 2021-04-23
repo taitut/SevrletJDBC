@@ -3,6 +3,7 @@ package com.laptrinhjavaweb.DAO.Ipl;
 import java.util.List;
 
 import com.laptrinhjavaweb.DAO.INewsDao;
+import com.laptrinhjavaweb.Pageble.Pageble;
 import com.laptrinhjavaweb.mapper.NewsMapper;
 import com.laptrinhjavaweb.model.News;
 
@@ -37,10 +38,20 @@ public class NewsDAO extends AbstractDAO<News> implements INewsDao {
 	}
 
 	@Override
-	public List<News> findAllNews(Integer offSet, Integer limit) {
-		String sql = "SELECT * FROM news LIMIT ?, ?";		
-		return query(sql, new NewsMapper(),offSet, limit);
+	public List<News> findAllNews(Pageble pageble) {
+//		String sql = "SELECT * FROM news LIMIT ?, ?";	
+		StringBuilder sql = new StringBuilder("select * from news");
 		
+		if (pageble.getSorter()!=null) {
+			sql.append(" ORDER BY "+pageble.getSorter().getSortName()+" "+pageble.getSorter().getSortBy());
+			
+		}
+		if (pageble.getOffset() != null && pageble.getLimit() != null) {
+			sql.append(" LIMIT "+pageble.getOffset()+" ," +pageble.getLimit()+"");
+			
+		}
+			return query(sql.toString(), new NewsMapper());
+			
 	}
 
 	@Override

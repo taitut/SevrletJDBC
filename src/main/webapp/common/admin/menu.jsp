@@ -55,7 +55,7 @@
 					</a> <b class="arrow"></b>
 
 						<ul class="submenu">
-							<li class=""><a href="<c:url value = '/admin-new?page=1&maxPageItem=6'/>"> <i
+							<li class=""><a href="<c:url value = '/admin-new?page=1&maxPageItem=5&sortName=title&sortBy=asc'/>"> <i
 									class="menu-icon fa fa-caret-right"></i> News List
 							</a> <b class="arrow"></b></li>
 

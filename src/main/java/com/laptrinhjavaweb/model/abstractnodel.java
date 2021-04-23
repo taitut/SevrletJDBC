@@ -17,6 +17,8 @@ public class abstractnodel <T>{
 	private Integer maxPageItem;
 	private Integer totalPage;
 	private Integer totalItem;
+	private String sortBy;
+	private String sortName;
 	
 	public Long getId() {
 		return id;
@@ -83,6 +85,18 @@ public class abstractnodel <T>{
 	}
 	public void setTotalItem(Integer totalItem) {
 		this.totalItem = totalItem;
+	}
+	public String getSortBy() {
+		return sortBy;
+	}
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
+	}
+	public String getSortName() {
+		return sortName;
+	}
+	public void setSortName(String sortname) {
+		this.sortName = sortname;
 	}
 	
 	

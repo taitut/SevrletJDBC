@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import com.laptrinhjavaweb.DAO.ICommentDao;
 import com.laptrinhjavaweb.DAO.INewsDao;
-
+import com.laptrinhjavaweb.Pageble.Pageble;
 import com.laptrinhjavaweb.model.News;
 import com.laptrinhjavaweb.service.INewsService;
 
@@ -46,9 +46,9 @@ public class newsServiceIpl implements INewsService {
 
 
 	@Override
-	public List<News> findAllNews(Integer offSet, Integer limit) {
+	public List<News> findAllNews(Pageble pageble) {
 
-		return newDao.findAllNews(offSet,limit);
+		return newDao.findAllNews(pageble);
 	}
 
 	@Override

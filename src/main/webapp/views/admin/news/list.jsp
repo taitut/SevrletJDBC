@@ -60,7 +60,7 @@
 					<table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
 						<thead>
 							<tr>
-								<th scope="col">Title</th>
+								<th scope="col" id= "title">Title</th>
 								<th scope="col">Content</th>
 								<th scope="col">shortDescription</th>
 								<th scope="col">thumbnail</th>
@@ -94,6 +94,8 @@
 				<ul class="pagination" id="pagination"></ul>
 				<input type="hidden"value="" id="page" name= "page">
 				<input type="hidden"value=""id="maxPageItem" name = "maxPageItem">
+				<input type="hidden"value="" id="sortName" name= "sortName">
+				<input type="hidden"value="" id="sortBy" name= "sortBy">
 			</div>
 			<!-- /.page-content -->
 		</div>
@@ -102,19 +104,30 @@
 	<script type="text/javascript">
 		var totalPages = ${model.totalPage};
 		var currentPage = ${model.page};
-		var limit = 6;
+		var limit = 5;
 		$(function () {
 			window.pagObj = $('#pagination').twbsPagination({
 				totalPages: totalPages,
 				visiblePages: 5,
 				startPage : currentPage,
+			
 				onPageClick: function (event, page) {
 					if (currentPage != page) {
 					$('#maxPageItem').val(limit);
 					$('#page').val(page);
+					$('#sortName').val("title");
+					$('#sortBy').val("asc");
 					$('#formSubmit').submit();
 					}
-					
+					$("#title").click(function () {
+						$('#maxPageItem').val(limit);
+						$('#page').val(page);
+						$('#sortName').val("title");
+						$('#sortName').val("title");
+						$('#sortBy').val("desc");
+						console.log("aa");
+						$('#formSubmit').submit();
+					    });
 				}
 			}).on('page', function (event, page) {
 				console.info(page + ' (from event listening)');

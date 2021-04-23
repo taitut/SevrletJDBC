@@ -10,9 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.laptrinhjavaweb.Pageble.PageRequet;
+import com.laptrinhjavaweb.Pageble.Pageble;
 import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.model.News;
 import com.laptrinhjavaweb.service.INewsService;
+import com.laptrinhjavaweb.sort.sorter;
+import com.laptrinhjavaweb.ultils.formUltils;
 
 
 @WebServlet(urlPatterns ="/admin-new")
@@ -22,20 +26,12 @@ public class NewsController extends HttpServlet {
 	private INewsService newsService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		News news = new News();
 		
-		String pageStr =request.getParameter("page");
-		String maxPageItemStr =request.getParameter("maxPageItem");
-		if (pageStr != null) {
-			news.setPage(Integer.parseInt(pageStr));
-		}else {
-			news.setPage(1);
-		}
-		if (maxPageItemStr != null) {
-			news.setMaxPageItem(Integer.parseInt(maxPageItemStr));
-		}
-		Integer offset = (news.getPage()-1) * news.getMaxPageItem();
-		news.setList(newsService.findAllNews(offset, news.getMaxPageItem()));
+		News news = formUltils.toModel(News.class, request);
+		Pageble pageble = new PageRequet(news.getPage(), news.getMaxPageItem(), 
+										new sorter(news.getSortName(), news.getSortBy()));
+		
+		news.setList(newsService.findAllNews(pageble));
 		news.setTotalItem(newsService.getTotalItem());
 		news.setTotalPage((int)Math.ceil((double) news.getTotalItem()/ news .getMaxPageItem()));
 		request.setAttribute(SystemConstant.MODLE, news);
