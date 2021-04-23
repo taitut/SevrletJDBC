@@ -5,19 +5,19 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<title>Danh sach bai viet</title>
+	<meta charset="UTF-8">
+	<title>Danh sach bai viet</title>
 </head>
 
 <body>
 	<div class="main-content">
+	<form action="<c:url value ='/admin-new'/>" id ="formSubmit" method="get">
 		<div class="main-content-inner">
 			<div class="breadcrumbs" id="breadcrumbs">
 				<script type="text/javascript">
 					try {
 						ace.settings.check('breadcrumbs', 'fixed')
-					} catch (e) {
-					}
+					} catch (e) {}
 				</script>
 
 				<ul class="breadcrumb">
@@ -28,10 +28,9 @@
 
 				<div class="nav-search" id="nav-search">
 					<form class="form-search">
-						<span class="input-icon"> <input type="text"
-							placeholder="Search ..." class="nav-search-input"
-							id="nav-search-input" autocomplete="off"> <i
-							class="ace-icon fa fa-search nav-search-icon"></i>
+						<span class="input-icon"> <input type="text" placeholder="Search ..." class="nav-search-input"
+								id="nav-search-input" autocomplete="off"> <i
+								class="ace-icon fa fa-search nav-search-icon"></i>
 						</span>
 					</form>
 				</div>
@@ -50,23 +49,15 @@
 				</div>
 				<!-- /.page-header -->
 				<div class="table-responsive">
-					<div class="dt-buttons btn-overlap btn-group">
-						<a flag="info"
-							class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-							data-toggle="tooltip" title='Thêm bài viết'
-							href='<c:url value="/admin-new?type=edit"/>'> <span> <i
-								class="fa fa-plus-circle bigger-110 purple"></i>
-						</span>
-						</a>
-						<button id="btnDelete" type="button"
-							class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
-							data-toggle="tooltip" title='Xóa bài viết'>
-							<span> <i class="fa fa-trash-o bigger-110 pink"></i>
+					<div class="dt-buttons btn-overlap btn-group text-center">
+						<a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
+							data-toggle="tooltip" title='Thêm bài viết' href='<c:url value="/admin-new?type=edit"/>'>
+							<span> <i class="fa fa-plus-circle bigger-110 purple"></i>
 							</span>
-						</button>
+						</a>
+						
 					</div>
-					<table class="table table-bordered" id="datTable" width="100%"
-						cellspacing="0">
+					<table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
 						<thead>
 							<tr>
 								<th scope="col">Title</th>
@@ -83,10 +74,16 @@
 									<td>${item.content }</td>
 									<td>${item.shortDescription }</td>
 									<td>${item.thumbnail }</td>
-									<td><a class="btn btn-sm btn-primary btn-edit"
-										data-toggle="tooltip" title="Cập nhật bài viết"
-										href='${editURL}'><i class="fa fa-pencil-square-o"
-											aria-hidden="true"></i> </a></td>
+									<td class = "text-center"><a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+											title="Cập nhật bài viết" href='${editURL}'><i class="fa fa-pencil-square-o"
+												aria-hidden="true"></i> </a> &emsp;&emsp;
+										<button id="btnDelete" type="button"
+							class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" data-toggle="tooltip"
+							title='Xóa bài viết'>
+							<span> <i class="fa fa-trash-o bigger-110 pink"></i>
+							</span>
+						</button>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -95,19 +92,31 @@
 
 				</div>
 				<ul class="pagination" id="pagination"></ul>
+				<input type="hidden"value="" id="page" name= "page">
+				<input type="hidden"value=""id="maxPageItem" name = "maxPageItem">
 			</div>
 			<!-- /.page-content -->
 		</div>
+		</form>
 	</div>
 	<script type="text/javascript">
-		$(function() {
+		var totalPages = ${model.totalPage};
+		var currentPage = ${model.page};
+		var limit = 6;
+		$(function () {
 			window.pagObj = $('#pagination').twbsPagination({
-				totalPages : 35,
-				visiblePages : 10,
-				onPageClick : function(event, page) {
-					console.info(page + ' (from options)');
+				totalPages: totalPages,
+				visiblePages: 5,
+				startPage : currentPage,
+				onPageClick: function (event, page) {
+					if (currentPage != page) {
+					$('#maxPageItem').val(limit);
+					$('#page').val(page);
+					$('#formSubmit').submit();
+					}
+					
 				}
-			}).on('page', function(event, page) {
+			}).on('page', function (event, page) {
 				console.info(page + ' (from event listening)');
 			});
 		});

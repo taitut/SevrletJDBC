@@ -13,10 +13,10 @@ public class abstractnodel <T>{
 	private String modifiedBy;
 	private Long[] ids;
 	private List<T> list = new ArrayList<>();
-	private int page;
-	private int maxPageItem;
-	private int totalPage;
-	
+	private Integer page;
+	private Integer maxPageItem;
+	private Integer totalPage;
+	private Integer totalItem;
 	
 	public Long getId() {
 		return id;
@@ -60,23 +60,30 @@ public class abstractnodel <T>{
 	public void setList(List<T> list) {
 		this.list = list;
 	}
-	public int getPage() {
+	public Integer getPage() {
 		return page;
 	}
-	public void setPage(int page) {
+	public void setPage(Integer page) {
 		this.page = page;
 	}
-	public int getMaxPageItem() {
+	public Integer getMaxPageItem() {
 		return maxPageItem;
 	}
-	public void setMaxPageItem(int maxPageItem) {
+	public void setMaxPageItem(Integer maxPageItem) {
 		this.maxPageItem = maxPageItem;
 	}
-	public int getTotalPage() {
+	public Integer getTotalPage() {
 		return totalPage;
 	}
-	public void setTotalPage(int totalPage) {
+	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
 	}
+	public Integer getTotalItem() {
+		return totalItem;
+	}
+	public void setTotalItem(Integer totalItem) {
+		this.totalItem = totalItem;
+	}
+	
 	
 }

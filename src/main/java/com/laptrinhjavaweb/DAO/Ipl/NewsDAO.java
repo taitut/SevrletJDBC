@@ -37,10 +37,9 @@ public class NewsDAO extends AbstractDAO<News> implements INewsDao {
 	}
 
 	@Override
-	public List<News> findAllNews() {
-		String sql = "SELECT * FROM news";
-		
-		return query(sql, new NewsMapper());
+	public List<News> findAllNews(Integer offSet, Integer limit) {
+		String sql = "SELECT * FROM news LIMIT ?, ?";		
+		return query(sql, new NewsMapper(),offSet, limit);
 		
 	}
 
@@ -56,6 +55,12 @@ public class NewsDAO extends AbstractDAO<News> implements INewsDao {
 		String sql = "select * from news where Id = ?";
 		 List<News> news = query(sql, new NewsMapper(), id);
 		return news.isEmpty() ? null : news.get(0);
+	}
+
+	@Override
+	public int getTotalItem() {
+		String sql = "SELECT count(*) FROM news";
+		return Count(sql);
 	}
 
 //	@Override

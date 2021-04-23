@@ -41,6 +41,8 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					satement.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Timestamp) {
 					satement.setTimestamp(index, (Timestamp) parameter);
+				} else if (parameter instanceof Timestamp) {
+					satement.setTimestamp(index, (Timestamp) parameter);
 				}
 			}
 		} catch (SQLException e) {
@@ -86,7 +88,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
 	@Override
 	public void update(String Sql, Object... parameters) {
-		this.mo("SET FOREIGN_KEY_CHECKS=0");
 		Connection con = null;
 		PreparedStatement statement = null;
 		try {
@@ -105,7 +106,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 				e1.printStackTrace();
 			}
 		} finally {
-			this.tat("SET FOREIGN_KEY_CHECKS=1");
 			try {
 				if (statement != null) {
 					statement.close();
@@ -160,19 +160,34 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 				return null;
 			}
 		}
-
 	}
-	public void mo(String sql) {
+	@Override
+	public int Count(String sql, Object... parameters) {
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
+			int count = 0;
 			con = getConnection();
 			statement = con.prepareStatement(sql);
-			resultSet = statement.executeQuery();
-		} catch (Exception e) {
+			setParameter(statement, parameters);
+			
+			resultSet= statement.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+			return count;
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+
+				e1.printStackTrace();
+				return 0;
+			}
+			return 0;
+		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
@@ -183,20 +198,8 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
 			} catch (SQLException e2) {
 				e2.printStackTrace();
+				return 0;
 			}
-		}
-	}
-	public void tat(String sql) {
-		Connection con = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			con = getConnection();
-			statement = con.prepareStatement(sql);
-			resultSet = statement.executeQuery();
-		} catch (Exception e) {
-			e.printStackTrace();
-		
 		}
 	}
 

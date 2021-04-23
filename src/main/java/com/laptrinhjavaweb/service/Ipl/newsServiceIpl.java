@@ -46,9 +46,9 @@ public class newsServiceIpl implements INewsService {
 
 
 	@Override
-	public List<News> findAllNews() {
+	public List<News> findAllNews(Integer offSet, Integer limit) {
 
-		return newDao.findAllNews();
+		return newDao.findAllNews(offSet,limit);
 	}
 
 	@Override
@@ -63,6 +63,11 @@ public class newsServiceIpl implements INewsService {
 			commentDao.deleteByNewsId(id);
 			newDao.delete(id);
 		}
+	}
+
+	@Override
+	public int getTotalItem() {
+		return newDao.getTotalItem();
 	}
 
 	

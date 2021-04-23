@@ -55,11 +55,8 @@
 					</a> <b class="arrow"></b>
 
 						<ul class="submenu">
-							<li class=""><a href="<c:url value = "/admin-new"/>" /> <i
-								class="menu-icon fa fa-caret-right"></i> List News <b
-								class="arrow "></b> </a>
-							<li class=""><a href="typography.html"> <i
-									class="menu-icon fa fa-caret-right"></i> Typography
+							<li class=""><a href="<c:url value = '/admin-new?page=1&maxPageItem=6'/>"> <i
+									class="menu-icon fa fa-caret-right"></i> News List
 							</a> <b class="arrow"></b></li>
 
 							<li class=""><a href="elements.html"> <i

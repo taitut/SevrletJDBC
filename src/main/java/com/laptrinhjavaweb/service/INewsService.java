@@ -10,6 +10,7 @@ public interface INewsService {
 	News update(News news);
 	void delete(Long[] ids);
 
-	List<News>  findAllNews();
+	List<News>  findAllNews( Integer offSet, Integer limit);
 	List<News>  findNBy(String filed, Object... objects);
+	int getTotalItem();
 }
