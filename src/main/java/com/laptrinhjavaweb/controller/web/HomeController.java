@@ -14,31 +14,25 @@ import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewsService;
 
 
-@WebServlet(urlPatterns = {"/trang-chu"})
+@WebServlet(urlPatterns = {"/trang-chu","/login"})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private ICategoryService categoryService;
-	@Inject
-	private INewsService newsService;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String title = "bai_10";
-////		String content = "hahahahaha";
-//		String a = "id";
-//		Long b = 1L;
-//		Long categoryId = 6L;
-//		News news = new News();
-////		news.setTitle(newsService.findNBy(a,b).getString("title"));
-////		news.setCatgoryId("");
-////		news.setContent(content);
-//		List<News> n = new ArrayList<>();
-//		n= newsService.findNBy(a,b);
-		 
-		
-		//request.setAttribute("test",newsService.findNBy(a,b));
-		
-//		request.setAttribute("find",newsService.findByCategoryId(categoryId));
-//		request.setAttribute("news",newsService.findAllNews(0,9));
+		String action = request.getParameter("action");
+		if (action !=null && action.equals("login")) {
+			RequestDispatcher rd =  request.getRequestDispatcher("/views/login.jsp");
+			rd.forward(request, response);
+		}else if (action !=null && action.equals("logout")) {
+			
+		}
+		else {
+			request.setAttribute("categorys", categoryService.findAll());
+			RequestDispatcher rd =  request.getRequestDispatcher("/views/web/home.jsp");
+		rd.forward(request, response);
+		}
 		request.setAttribute("categorys", categoryService.findAll());
 		
 		RequestDispatcher rd =  request.getRequestDispatcher("/views/web/home.jsp");

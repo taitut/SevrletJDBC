@@ -17,6 +17,7 @@
 				<li class="nav-item"><a class="nav-link" href="#">Services</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/login?action=login'/>">Dang nhap</a></li>
 			</ul>
 		</div>
 	</div>
