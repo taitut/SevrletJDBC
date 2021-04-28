@@ -4,34 +4,35 @@ package com.laptrinhjavaweb.model;
 public class User extends abstractnodel <User> {
 
 
-	private Long role;
+	private Long roleId;
 	private String userName;
 	private String password;
 	private String fullname;
 	private int status;
-
+	private Role role = new Role() ;
 
 
 	public User() {
 	}
 
-	public User(Long role, String userName, String password, int status) {
-		this.role = role;
+	public User(Long roleId, String userName, String password,String fullname, int status) {
+		this.roleId = roleId;
 		this.userName = userName;
 		this.password = password;
 		this.status = status;
+		this.fullname=fullname;
 	}
 
 	
 
 	
 
-	public Long getRole() {
-		return this.role;
+	public Long getRoleId() {
+		return this.roleId;
 	}
 
-	public void setRole(Long role) {
-		this.role = role;
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getUserName() {
@@ -66,5 +67,12 @@ public class User extends abstractnodel <User> {
 		this.status = status;
 	}
 
-	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 }

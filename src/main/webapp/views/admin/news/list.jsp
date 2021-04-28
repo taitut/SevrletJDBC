@@ -11,7 +11,7 @@
 
 <body>
 	<div class="main-content">
-	<form action="<c:url value ='/admin-new'/>" id ="formSubmit" method="get">
+		<form action="<c:url value ='/admin-new'/>" id ="formSubmit" method="get">
 		<div class="main-content-inner">
 			<div class="breadcrumbs" id="breadcrumbs">
 				<script type="text/javascript">

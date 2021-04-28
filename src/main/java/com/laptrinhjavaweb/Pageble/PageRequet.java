@@ -21,14 +21,14 @@ public class PageRequet implements Pageble {
 	@Override
 	public Integer getOffset() {
 		if (this.page != null && this.maxPageItem != null) {
-			return (this.page - 1) * this.maxPageItem;
+			return (this.page-1 ) * this.maxPageItem;
 		}
 		return null;
 	}
 
 	@Override
 	public Integer getLimit() {
-		return this.maxPageItem;
+		return this.maxPageItem+1;
 	}
 	@Override
 	public sorter getSorter() {

@@ -9,17 +9,19 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.laptrinhjavaweb.DAO.GenericDAO;
 import com.laptrinhjavaweb.mapper.RowMapper;
 
 public class AbstractDAO<T> implements GenericDAO<T> {
+	ResourceBundle resource = ResourceBundle.getBundle("db");
 	public Connection getConnection() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/new_servlet";
-			String user = "root";
-			String password = "1234";
+			Class.forName(resource.getString("driverName"));
+			String url = resource.getString("url");
+			String user = resource.getString("user");
+			String password = resource.getString("password");
 			return DriverManager.getConnection(url, user, password);
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -75,6 +77,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 				if (resultSet != null) {
 					resultSet.close();
 				}
+//				if (con != null) {
+//					con.close();
+//				}
 
 			} catch (SQLException e2) {
 				e2.printStackTrace();
@@ -109,6 +114,10 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			try {
 				if (statement != null) {
 					statement.close();
+				}
+
+				if (con != null) {
+					con.close();
 				}
 
 			} catch (SQLException e2) {

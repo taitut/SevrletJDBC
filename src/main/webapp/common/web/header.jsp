@@ -17,7 +17,23 @@
 				<li class="nav-item"><a class="nav-link" href="#">Services</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/login?action=login'/>">Dang nhap</a></li>
+				<c:if test = "${not empty USER}">
+					<div class="dropdown show">
+						<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								${USER.fullname}
+						</a>
+
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="<c:url value='/login?action=logout'/>">Logout</a>
+						</div>
+					</div>
+
+				</c:if>
+				<c:if test = "${empty USER}">
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/login?action=login'/>">Login</a></li>
+
+				</c:if>
+
 			</ul>
 		</div>
 	</div>

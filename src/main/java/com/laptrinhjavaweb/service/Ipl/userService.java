@@ -21,6 +21,12 @@ public class userService implements IUserService {
 	}
 
 	@Override
+	public User findNByUserNameRole(String userName, String password, Integer status) {
+		return  userDao.findNByUserNameRole(userName,password,status);
+	}
+
+
+	@Override
 	public User save(User user) {
 		user.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		user.setCreatedBy("");

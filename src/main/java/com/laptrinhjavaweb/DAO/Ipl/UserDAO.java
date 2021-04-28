@@ -21,10 +21,19 @@ public class UserDAO extends AbstractDAO<User> implements IUserDao {
 	}
 
 	@Override
+	public User findNByUserNameRole(String userName, String password,Integer status) {
+		StringBuilder sql = new StringBuilder("Select * from user as u ");
+			sql.append("inner join role as r on r.id = u.roleId ");
+		sql.append(" where userName =? and password = ? and status=?");
+		List<User> users= query(sql.toString(),new UserMapper(),userName,password,status);
+			return users.isEmpty() ? null : users.get(0);
+	}
+
+	@Override
 	public Long save(User user) {
 		String sql = "Insert into user ( userName, password, fullname, status, createDate, modifiedDate, createdBy, modifiedBy, roleId) VALUES (?,?,?,?,?,?,?,?,?)";
 		return insert(sql, user.getUserName(),user.getPassword(),user.getFullname(),user.getStatus(),
-				user.getCreateDate(),user.getModifiedDate(),user.getCreatedBy(),user.getModifiedBy(),user.getRole());
+				user.getCreateDate(),user.getModifiedDate(),user.getCreatedBy(),user.getModifiedBy(),user.getRoleId());
 	}
 
 	@Override
@@ -33,7 +42,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDao {
 		sql.append("createDate = ?, modifiedDate = ? , createdBy = ?, modifiedBy = ?, roleId =?");
 		sql.append(" where id = ?");
 		this.update(sql.toString(), user.getUserName(),user.getPassword(),user.getFullname(),user.getStatus(),
-				user.getCreateDate(),user.getModifiedDate(),user.getCreatedBy(),user.getModifiedBy(),user.getRole(),
+				user.getCreateDate(),user.getModifiedDate(),user.getCreatedBy(),user.getModifiedBy(),user.getRoleId(),
 				user.getId());
 		
 	}
