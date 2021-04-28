@@ -22,7 +22,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
-        if (url.startsWith("/admin")) {
+        if (url.contains("/admin")) {
             User model = (User) SessionUtil.getInstance().getValue(request, "USER");
             if (model != null) {
                 if (model.getRole().getCode().equals(SystemConstant.ADMIN)) {
