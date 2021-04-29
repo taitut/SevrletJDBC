@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WEB HOMEP AGE</title>
+<title><decorator:title></decorator:title></title>
 <link
 	href='<c:url value='/template/web/bootstrap/css/bootstrap.min.css'/>'
 	rel="stylesheet">

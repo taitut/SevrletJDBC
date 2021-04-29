@@ -9,7 +9,7 @@
 
 <meta charset="UTF-8">
 
-<title>Home Page</title>
+<title>Admin Home</title>
 
 </head>
 

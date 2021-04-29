@@ -49,33 +49,23 @@
 								Dashboard </span>
 					</a> <b class="arrow"></b></li>
 
-					<li class=""><a href="#" class="dropdown-toggle"> <i
+					<li class=""><a  class="dropdown-toggle"> <i
 							class="menu-icon fa fa-desktop"></i> <span class="menu-text">
 								News </span> <b class="arrow fa fa-angle-down"></b>
 					</a> <b class="arrow"></b>
 
 						<ul class="submenu">
-							<li class=""><a href="<c:url value = '/admin-new?page=1&maxPageItem=5&sortName=title&sortBy=asc'/>"> <i
+							<li class="">
+								<c:url var="listNews" value="/admin-new">
+									<c:param name="type" value="list"/>
+									<c:param name="page" value="1"/>
+									<c:param name="maxPageItem" value="5"/>
+									<c:param name="sortName" value="title"/>
+									<c:param name="sortBy" value="asc"/>
+								</c:url>
+								<a href="${listNews}"> <i
 									class="menu-icon fa fa-caret-right"></i> News List
 							</a> <b class="arrow"></b></li>
-
-							<li class=""><a href="elements.html"> <i
-									class="menu-icon fa fa-caret-right"></i> Elements
-							</a> <b class="arrow"></b></li>
-
-							<li class=""><a href="buttons.html"> <i
-									class="menu-icon fa fa-caret-right"></i> Buttons &amp; Icons
-							</a> <b class="arrow"></b></li>
-
-							<li class=""><a href="content-slider.html"> <i
-									class="menu-icon fa fa-caret-right"></i> Content Sliders
-							</a> <b class="arrow"></b></li>
-
-							<li class=""><a href="treeview.html"> <i
-									class="menu-icon fa fa-caret-right"></i> Treeview
-							</a> <b class="arrow"></b></li>
-
-
 
 						</ul></li>
 

@@ -24,9 +24,6 @@ public class newsServiceIpl implements INewsService {
 	@Override
 	public News save(News news) {
 		news.setCreateDate(new Timestamp(System.currentTimeMillis()));
-		news.setCreatedBy("");
-		news.setModifiedBy("");
-		news.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		Long newsId = newDao.save(news);
 		System.out.println(newsId);
 		return newDao.findOne(newsId);
@@ -38,7 +35,6 @@ public class newsServiceIpl implements INewsService {
 		News oldNews = newDao.findOne(news.getId());
 		news.setCreateDate(oldNews.getCreateDate());
 		news.setCreatedBy(oldNews.getCreatedBy());
-		news.setModifiedBy("");
 		news.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		newDao.update(news);
 		return newDao.findOne(news.getId());
@@ -63,6 +59,11 @@ public class newsServiceIpl implements INewsService {
 			commentDao.deleteByNewsId(id);
 			newDao.delete(id);
 		}
+	}
+
+	@Override
+	public News findOne(Long id) {
+		return newDao.findOne(id);
 	}
 
 	@Override

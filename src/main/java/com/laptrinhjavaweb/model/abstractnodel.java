@@ -19,7 +19,35 @@ public class abstractnodel <T>{
 	private Integer totalItem;
 	private String sortBy;
 	private String sortName;
-	
+	private String alert;
+	private String message;
+	private String type;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+
+	public String getAlert() {
+		return alert;
+	}
+
+	public void setAlert(String alert) {
+		this.alert = alert;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -98,6 +126,6 @@ public class abstractnodel <T>{
 	public void setSortName(String sortname) {
 		this.sortName = sortname;
 	}
-	
-	
+
+
 }

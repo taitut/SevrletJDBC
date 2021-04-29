@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laptrinhjavaweb.model.News;
+import com.laptrinhjavaweb.model.User;
 import com.laptrinhjavaweb.service.INewsService;
 import com.laptrinhjavaweb.ultils.HttpUltis;
+import com.laptrinhjavaweb.ultils.SessionUtil;
 
 
 @WebServlet("/api-admin-new")
@@ -26,6 +28,7 @@ public class NewsApi extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		News news = HttpUltis.of(request.getReader()).toModel(News.class);
+		news.setCreatedBy(((User) SessionUtil.getInstance().getValue(request,"USER")).getUserName());
 		newsService.save(news);
 		mapper.writeValue(response.getOutputStream(), news);
 	}
@@ -35,6 +38,7 @@ public class NewsApi extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		News UpdateNews = HttpUltis.of(request.getReader()).toModel(News.class);
+		UpdateNews.setModifiedBy(((User) SessionUtil.getInstance().getValue(request,"USER")).getUserName());
 		newsService.update(UpdateNews);
 		mapper.writeValue(response.getOutputStream(),UpdateNews );
 
