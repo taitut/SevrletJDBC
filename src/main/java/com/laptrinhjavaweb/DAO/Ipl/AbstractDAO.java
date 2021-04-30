@@ -43,8 +43,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					satement.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Timestamp) {
 					satement.setTimestamp(index, (Timestamp) parameter);
-				} else if (parameter instanceof Timestamp) {
-					satement.setTimestamp(index, (Timestamp) parameter);
 				}
 			}
 		} catch (SQLException e) {
@@ -77,13 +75,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 				if (resultSet != null) {
 					resultSet.close();
 				}
-//				if (con != null) {
-//					con.close();
-//				}
-
 			} catch (SQLException e2) {
 				e2.printStackTrace();
-				return null;
+
 			}
 		}
 
@@ -115,11 +109,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 				if (statement != null) {
 					statement.close();
 				}
-
-				if (con != null) {
-					con.close();
-				}
-
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -150,7 +139,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			try {
 				con.rollback();
 			} catch (SQLException e1) {
-
 				e1.printStackTrace();
 				return null;
 			}
@@ -166,7 +154,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
 			} catch (SQLException e2) {
 				e2.printStackTrace();
-				return null;
+
 			}
 		}
 	}
@@ -207,7 +195,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
 			} catch (SQLException e2) {
 				e2.printStackTrace();
-				return 0;
+
 			}
 		}
 	}

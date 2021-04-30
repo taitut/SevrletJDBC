@@ -74,7 +74,7 @@ public class newsServiceIpl implements INewsService {
 		News news = newDao.findOne(id);
 		Category category = categoryDao.findOne(news.getCatgoryId());
 		news.setCategoryCode(category.getCode());
-		return  newDao.findOne(id);
+		return  news;
 	}
 
 	@Override

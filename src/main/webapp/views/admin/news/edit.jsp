@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-
+<c:url var="APIurl" value="api-admin-new"/>
 <html>
 <head>
     <c:if test="${not empty model.id}">
@@ -150,11 +150,48 @@
     })
    $('#btnAddOrUpdateNew').click(function (e) {
        e.preventDefault();
-        var formData = $('#formSubmit').serializeArray();
-        $(formData).each(function (index,value) {
-            console.log(value);
+       var data ={};
+        var formData    = $('#formSubmit').serializeArray();
+        $(formData).each(function (i,v) {
+            data[""+v.name+""] = v.value;
         });
+        var id  = $('#id').val()
+       if (id == ""){
+           addNew(data);
+       }else{
+           updateNew( data);
+       }
    });
+    function addNew(data) {
+        $.ajax({
+            url:'${APIurl}',
+            type:'POST',
+            contentType:'application/json',
+            data:JSON.stringify(data),
+            dataType:'json',
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+    function updateNew(data) {
+        $.ajax({
+            url:'${APIurl}',
+            type:'PUT',
+            contentType:'application/json',
+            data:JSON.stringify(data),
+            dataType:'json',
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
 </script>
 </body>
 </html>

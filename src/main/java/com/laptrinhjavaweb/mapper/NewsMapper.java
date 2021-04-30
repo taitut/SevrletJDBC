@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.laptrinhjavaweb.model.News;
 
@@ -18,10 +19,17 @@ public class NewsMapper implements RowMapper<News> {
 		news.setThumbnail(resultSet.getString("thumbnail"));
 		news.setCatgoryId(resultSet.getLong("categoryId"));
 		news.setCreatedBy(resultSet.getString("createdBy"));
-		news.setModifiedBy(resultSet.getString("modifiedBy"));
 		news.setCreateDate(resultSet.getTimestamp("createDate"));
-		news.setCreateDate(resultSet.getTimestamp("modifiedDate"));
-		
+			if (resultSet.getTimestamp("modifiedDate") != null) {
+				news.setModifiedDate(resultSet.getTimestamp("modifiedDate"));
+			}else {
+				news.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+			}
+			if (resultSet.getString("modifiedBy") != null) {
+				news.setModifiedBy(resultSet.getString("modifiedBy"));
+			}else{
+				news.setModifiedBy("");
+			}
 		return news;
 		} catch (SQLException e) {
 			e.printStackTrace();

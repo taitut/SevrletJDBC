@@ -2,6 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="NewURL" value="/admin-new"/>
+<c:url var="APIurl" value="api-admin-new"/>
+
 <!DOCTYPE html>
 <html>
 
@@ -76,6 +78,7 @@
                            role="grid" aria-describedby="dynamic-table_info">
                         <thead>
                         <tr>
+                            <th><label for="checkAll"></label>&nbsp;<input type="checkbox" id="checkAll"/></th>
                             <th scope="col" id="title">Title</th>
                             <th scope="col">Content</th>
                             <th scope="col">ShortDescription</th>
@@ -86,6 +89,9 @@
                         <tbody>
                         <c:forEach var="item" items="${model.list}">
                             <tr>
+                                <td><label for="checkbox_${item.id}"></label>
+                                    <input type="checkbox" id="checkbox_${item.id}" value="${item.id}"/>
+                                </td>
                                 <td>${item.title }</td>
                                 <td>${item.content }</td>
                                 <td>${item.shortDescription }</td>
@@ -128,7 +134,7 @@
             startPage: currentPage,
 
             onPageClick: function (event, page) {
-                if (currentPage != page) {
+                if (currentPage !== page) {
                     $('#maxPageItem').val(limit);
                     $('#page').val(page);
                     $('#sortName').val("title");
@@ -140,7 +146,7 @@
                     $('#maxPageItem').val(limit);
                     $('#page').val(page);
                     $('#sortName').val("title");
-                    $('#sortName').val("title");
+
                     $('#type').val("list");
                     $('#sortBy').val("desc");
                     console.log("aa");
@@ -150,6 +156,52 @@
         }).on('page', function (event, page) {
             console.info(page + ' (from event listening)');
         });
+        $('#btnDelete').click(function () {
+            var data = {};
+            var ids = $('tbody input[type=checkbox]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            data['ids'] = ids;
+            deleteNew(data);
+        });
+        function deleteNew(data) {
+            $.ajax({
+                url:'${APIurl}',
+                type:'DELETE',
+                contentType:'application/json',
+                data:JSON.stringify(data),
+                success: function (result) {
+                    window.location.href="${NewURL}?type=list&page=1&maxPageItem=4&message=delete_success";
+                },
+                error: function (error) {
+                    window.location.href="${NewURL}?type=list&page=1&maxPageItem=4&message=error_system";
+                }
+            })
+        }
+        $("#checkAll").click(function() {
+            $("input[type=checkbox]").prop("checked", $(this).prop("checked"))
+            $('#btnDelete').prop('disabled', false);
+        });
+
+        $("input[type=checkbox]").click(function() {
+            if (!$(this).prop("checked")) {
+
+            }
+            $('#btnDelete').prop('disabled', false);
+        });
+        $("input[type=checkbox]").change(function() {
+            if (!$(this).prop("checked")) {
+                $('#btnDelete').prop('disabled', true);
+            }else{
+                $('#btnDelete').prop('disabled', false);
+            }
+
+        });
+        $(document).ready(function() {
+            $('#btnDelete').prop('disabled', true);
+        });
+
+
     });
 </script>
 </body>
