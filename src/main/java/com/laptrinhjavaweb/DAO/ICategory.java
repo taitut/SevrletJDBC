@@ -9,5 +9,6 @@ public interface ICategory extends GenericDAO <Category> {
 	Long save(Category category);
 	void update(Category category);
 	void delete(Long id);
+	Category findOneByCode(String code);
 	Category findOne(Long id);
 }

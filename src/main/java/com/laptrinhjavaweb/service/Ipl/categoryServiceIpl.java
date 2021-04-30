@@ -15,7 +15,6 @@ public class categoryServiceIpl implements ICategoryService {
 //	@Inject
 //	private INewsDao newDao;
 	public List<Category> findAll() {
-
 		return categoryDAO.findAll();
 	}
 	@Override

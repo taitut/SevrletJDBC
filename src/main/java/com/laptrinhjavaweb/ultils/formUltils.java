@@ -8,10 +8,10 @@ import org.apache.commons.beanutils.BeanUtils;
 
 public class formUltils {
 	@SuppressWarnings("unchecked")
-	public static <T> T toModel(Class<T> tclass, HttpServletRequest requets ) {
+	public static <T> T toModel(Class<T> tClass, HttpServletRequest requets ) {
 		T object =null;
 		try {
-			object  =tclass.newInstance();
+			object  =tClass.newInstance();
 			BeanUtils.populate(object, requets.getParameterMap());
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
