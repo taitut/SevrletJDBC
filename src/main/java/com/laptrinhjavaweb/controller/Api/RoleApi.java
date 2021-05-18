@@ -16,34 +16,36 @@ import com.laptrinhjavaweb.ultils.HttpUltis;
 
 @WebServlet("/api-admin-role")
 public class RoleApi extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	@Inject
-	private IRoleService roleService;
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		Role role = HttpUltis.of(request.getReader()).toModel(Role.class);
-		roleService.save(role);
-		mapper.writeValue(response.getOutputStream(), role);
-	}
+    private static final long serialVersionUID = 1L;
+    @Inject
+    private IRoleService roleService;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        Role role = HttpUltis.of(request.getReader()).toModel(Role.class);
+        roleService.save(role);
+        mapper.writeValue(response.getOutputStream(), role);
+    }
 
 
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		Role role = HttpUltis.of(request.getReader()).toModel(Role.class);
-		roleService.update(role);
-		mapper.writeValue(response.getOutputStream(), role);
-	}
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		Role role = HttpUltis.of(request.getReader()).toModel(Role.class);
-		roleService.delete(role.getIds());
-		mapper.writeValue(response.getOutputStream(), "{}");
-	}
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        Role role = HttpUltis.of(request.getReader()).toModel(Role.class);
+        roleService.update(role);
+        mapper.writeValue(response.getOutputStream(), role);
+    }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        Role role = HttpUltis.of(request.getReader()).toModel(Role.class);
+        roleService.delete(role.getIds());
+        mapper.writeValue(response.getOutputStream(), "{}");
+    }
 
 }

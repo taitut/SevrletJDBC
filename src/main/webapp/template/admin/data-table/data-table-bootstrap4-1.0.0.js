@@ -10,87 +10,84 @@
  * controls using Bootstrap. See http://datatables.net/manual/styling/bootstrap
  * for further information.
  */
-(function( factory ){
-    if ( typeof define === 'function' && define.amd ) {
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
         // AMD
-        define( ['jquery', 'datatables.net'], function ( $ ) {
-            return factory( $, window, document );
-        } );
-    }
-    else if ( typeof exports === 'object' ) {
+        define(['jquery', 'datatables.net'], function ($) {
+            return factory($, window, document);
+        });
+    } else if (typeof exports === 'object') {
         // CommonJS
         module.exports = function (root, $) {
-            if ( ! root ) {
+            if (!root) {
                 root = window;
             }
 
-            if ( ! $ || ! $.fn.dataTable ) {
+            if (!$ || !$.fn.dataTable) {
                 // Require DataTables, which attaches to jQuery, including
                 // jQuery if needed and have a $ property so we can access the
                 // jQuery object that is used
                 $ = require('datatables.net')(root, $).$;
             }
 
-            return factory( $, root, root.document );
+            return factory($, root, root.document);
         };
-    }
-    else {
+    } else {
         // Browser
-        factory( jQuery, window, document );
+        factory(jQuery, window, document);
     }
-}(function( $, window, document, undefined ) {
+}(function ($, window, document, undefined) {
     'use strict';
     var DataTable = $.fn.dataTable;
 
 
     /* Set the defaults for DataTables initialisation */
-    $.extend( true, DataTable.defaults, {
+    $.extend(true, DataTable.defaults, {
         dom:
             "<'row'<'col-md-6'l><'col-md-6'f>>" +
-                "<'row'<'col-md-12'tr>>" +
-                "<'row'<'col-md-5'i><'col-md-7'p>>",
+            "<'row'<'col-md-12'tr>>" +
+            "<'row'<'col-md-5'i><'col-md-7'p>>",
         renderer: 'bootstrap'
-    } );
+    });
 
 
     /* Default class modification */
-    $.extend( DataTable.ext.classes, {
-        sWrapper:      "dataTables_wrapper form-inline dt-bootstrap4",
-        sFilterInput:  "form-control input-sm",
+    $.extend(DataTable.ext.classes, {
+        sWrapper: "dataTables_wrapper form-inline dt-bootstrap4",
+        sFilterInput: "form-control input-sm",
         sLengthSelect: "form-control input-sm",
-        sProcessing:   "dataTables_processing panel panel-default",
-        sPageButton:   "paginate_button page-item"
-    } );
+        sProcessing: "dataTables_processing panel panel-default",
+        sPageButton: "paginate_button page-item"
+    });
 
 
     /* Bootstrap paging button renderer */
-    DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, buttons, page, pages ) {
-        var api     = new DataTable.Api( settings );
+    DataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx, buttons, page, pages) {
+        var api = new DataTable.Api(settings);
         var classes = settings.oClasses;
-        var lang    = settings.oLanguage.oPaginate;
+        var lang = settings.oLanguage.oPaginate;
         var aria = settings.oLanguage.oAria.paginate || {};
-        var btnDisplay, btnClass, counter=0;
+        var btnDisplay, btnClass, counter = 0;
 
-        var attach = function( container, buttons ) {
+        var attach = function (container, buttons) {
             var i, ien, node, button;
-            var clickHandler = function ( e ) {
+            var clickHandler = function (e) {
                 e.preventDefault();
-                if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
-                    api.page( e.data.action ).draw( 'page' );
+                if (!$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action) {
+                    api.page(e.data.action).draw('page');
                 }
             };
 
-            for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
+            for (i = 0, ien = buttons.length; i < ien; i++) {
                 button = buttons[i];
 
-                if ( $.isArray( button ) ) {
-                    attach( container, button );
-                }
-                else {
+                if ($.isArray(button)) {
+                    attach(container, button);
+                } else {
                     btnDisplay = '';
                     btnClass = '';
 
-                    switch ( button ) {
+                    switch (button) {
                         case 'ellipsis':
                             btnDisplay = '&#x2026;';
                             btnClass = 'disabled';
@@ -110,13 +107,13 @@
 
                         case 'next':
                             btnDisplay = lang.sNext;
-                            btnClass = button + (page < pages-1 ?
+                            btnClass = button + (page < pages - 1 ?
                                 '' : ' disabled');
                             break;
 
                         case 'last':
                             btnDisplay = lang.sLast;
-                            btnClass = button + (page < pages-1 ?
+                            btnClass = button + (page < pages - 1 ?
                                 '' : ' disabled');
                             break;
 
@@ -127,24 +124,24 @@
                             break;
                     }
 
-                    if ( btnDisplay ) {
+                    if (btnDisplay) {
                         node = $('<li>', {
-                            'class': classes.sPageButton+' '+btnClass,
+                            'class': classes.sPageButton + ' ' + btnClass,
                             'id': idx === 0 && typeof button === 'string' ?
-                                settings.sTableId +'_'+ button :
+                                settings.sTableId + '_' + button :
                                 null
-                        } )
-                            .append( $('<a>', {
-                                'href': '#',
-                                'aria-controls': settings.sTableId,
-                                'aria-label': aria[ button ],
-                                'data-dt-idx': counter,
-                                'tabindex': settings.iTabIndex,
-                                'class': 'page-link'
-                            } )
-                                .html( btnDisplay )
+                        })
+                            .append($('<a>', {
+                                    'href': '#',
+                                    'aria-controls': settings.sTableId,
+                                    'aria-label': aria[button],
+                                    'data-dt-idx': counter,
+                                    'tabindex': settings.iTabIndex,
+                                    'class': 'page-link'
+                                })
+                                    .html(btnDisplay)
                             )
-                            .appendTo( container );
+                            .appendTo(container);
 
                         settings.oApi._fnBindAction(
                             node, {action: button}, clickHandler
@@ -166,16 +163,16 @@
             // accessibility. So we want to restore focus once the draw has
             // completed
             activeEl = $(host).find(document.activeElement).data('dt-idx');
+        } catch (e) {
         }
-        catch (e) {}
 
         attach(
             $(host).empty().html('<ul class="pagination"/>').children('ul'),
             buttons
         );
 
-        if ( activeEl ) {
-            $(host).find( '[data-dt-idx='+activeEl+']' ).focus();
+        if (activeEl) {
+            $(host).find('[data-dt-idx=' + activeEl + ']').focus();
         }
     };
 

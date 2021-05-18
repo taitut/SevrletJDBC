@@ -71,6 +71,24 @@
 							<span> <i class="fa fa-trash-o bigger-110 pink"></i>
 							</span>
                         </button>
+                        <div class="modal fade" id="myModal${item.id}" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ${item.content}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
                     <table id="dynamic-table"
@@ -93,8 +111,16 @@
                                     <input type="checkbox" id="checkbox_${item.id}" value="${item.id}"/>
                                 </td>
                                 <td>${item.title }</td>
-                                <td>${item.content }</td>
-                                <td>${item.shortDescription }</td>
+                                <td style="display: -webkit-box;
+
+                           -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: normal;
+                            -webkit-line-clamp: 3;
+                                width: min-content;
+                           " >${item.content }</td>
+                                <td style="width: min-content;">${item.shortDescription }</td>
                                 <td>${item.thumbnail }</td>
                                 <td class="text-center">
                                     <c:url var="editURL" value="/admin-new">
@@ -102,8 +128,41 @@
                                         <c:param name="id" value="${item.id}"/>
                                     </c:url>
                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                       title="Update News" href='${editURL}'><i class="fa fa-pencil-square-o"
-                                                                                aria-hidden="true"></i> </a>
+                                       title="Update News" href='${editURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+                                    <br/><br/>
+
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" title="View Content " id="myBtn${item.id}"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal${item.id}" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ${item.content}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#btnDelete').prop('disabled', true);
+                                            $("#myBtn${item.id}").click(function(){
+                                                $("#myModal${item.id}").modal();
+                                            });
+                                        });
+                                    </script>
+
+
+
                                 </td>
                             </tr>
                         </c:forEach>
@@ -124,6 +183,7 @@
     </form>
 </div>
 <script type="text/javascript">
+
     var totalPages = ${model.totalPage};
     var currentPage = ${model.page};
     var limit = 4;
@@ -164,43 +224,41 @@
             data['ids'] = ids;
             deleteNew(data);
         });
+
         function deleteNew(data) {
             $.ajax({
-                url:'${APIurl}',
-                type:'DELETE',
-                contentType:'application/json',
-                data:JSON.stringify(data),
+                url: '${APIurl}',
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
                 success: function (result) {
-                    window.location.href="${NewURL}?type=list&page=1&maxPageItem=4&message=delete_success";
+                    window.location.href = "${NewURL}?type=list&page=1&maxPageItem=4&message=delete_success";
                 },
                 error: function (error) {
-                    window.location.href="${NewURL}?type=list&page=1&maxPageItem=4&message=error_system";
+                    window.location.href = "${NewURL}?type=list&page=1&maxPageItem=4&message=error_system";
                 }
             })
         }
-        $("#checkAll").click(function() {
+
+        $("#checkAll").click(function () {
             $("input[type=checkbox]").prop("checked", $(this).prop("checked"))
             $('#btnDelete').prop('disabled', false);
         });
 
-        $("input[type=checkbox]").click(function() {
+        $("input[type=checkbox]").click(function () {
             if (!$(this).prop("checked")) {
 
             }
             $('#btnDelete').prop('disabled', false);
         });
-        $("input[type=checkbox]").change(function() {
+        $("input[type=checkbox]").change(function () {
             if (!$(this).prop("checked")) {
                 $('#btnDelete').prop('disabled', true);
-            }else{
+            } else {
                 $('#btnDelete').prop('disabled', false);
             }
 
         });
-        $(document).ready(function() {
-            $('#btnDelete').prop('disabled', true);
-        });
-
 
     });
 </script>

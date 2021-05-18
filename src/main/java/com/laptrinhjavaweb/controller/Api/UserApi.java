@@ -17,37 +17,37 @@ import com.laptrinhjavaweb.ultils.HttpUltis;
 
 @WebServlet("/api-admin-user")
 public class UserApi extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	@Inject
-	private IUserService userService;
+    private static final long serialVersionUID = 1L;
+    @Inject
+    private IUserService userService;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		User user = HttpUltis.of(request.getReader()).toModel(User.class);
-		userService.save(user);
-		mapper.writeValue(response.getOutputStream(), user);
-	}
-
-
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		User user = HttpUltis.of(request.getReader()).toModel(User.class);
-		userService.update(user);
-		mapper.writeValue(response.getOutputStream(), user);
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        User user = HttpUltis.of(request.getReader()).toModel(User.class);
+        userService.save(user);
+        mapper.writeValue(response.getOutputStream(), user);
+    }
 
 
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		User user = HttpUltis.of(request.getReader()).toModel(User.class);
-		userService.delete(user.getIds());
-		mapper.writeValue(response.getOutputStream(), user);
-	}
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        User user = HttpUltis.of(request.getReader()).toModel(User.class);
+        userService.update(user);
+        mapper.writeValue(response.getOutputStream(), user);
+    }
+
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        User user = HttpUltis.of(request.getReader()).toModel(User.class);
+        userService.delete(user.getIds());
+        mapper.writeValue(response.getOutputStream(), user);
+    }
 
 }

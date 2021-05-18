@@ -19,38 +19,38 @@ import com.laptrinhjavaweb.ultils.HttpUltis;
  */
 @WebServlet("/api-admin-category")
 public class CategoryApi extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Inject
-	private ICategoryService CategoryService;
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		Category category = HttpUltis.of(request.getReader()).toModel(Category.class);
-		CategoryService.save(category);
-		mapper.writeValue(response.getOutputStream(), category.getId());
-	}
+    @Inject
+    private ICategoryService CategoryService;
 
-	
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		Category category = HttpUltis.of(request.getReader()).toModel(Category.class);
-		CategoryService.update(category);
-		mapper.writeValue(response.getOutputStream(), category.getId());
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        Category category = HttpUltis.of(request.getReader()).toModel(Category.class);
+        CategoryService.save(category);
+        mapper.writeValue(response.getOutputStream(), category.getId());
+    }
 
 
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		Category category = HttpUltis.of(request.getReader()).toModel(Category.class);
-		CategoryService.delete(category.getIds());
-		mapper.writeValue(response.getOutputStream(), "{}");
-	}
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        Category category = HttpUltis.of(request.getReader()).toModel(Category.class);
+        CategoryService.update(category);
+        mapper.writeValue(response.getOutputStream(), category.getId());
+    }
+
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        Category category = HttpUltis.of(request.getReader()).toModel(Category.class);
+        CategoryService.delete(category.getIds());
+        mapper.writeValue(response.getOutputStream(), "{}");
+    }
 
 }

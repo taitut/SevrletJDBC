@@ -21,6 +21,7 @@ public class News extends abstractnodel<News> {
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
     }
+
     public String getTitle() {
         return title;
     }

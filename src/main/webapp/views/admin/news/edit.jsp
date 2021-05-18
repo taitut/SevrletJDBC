@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="APIurl" value="api-admin-new"/>
+<c:url var="NewURL" value="/admin-new"/>
 <html>
 <head>
     <c:if test="${not empty model.id}">
@@ -145,50 +146,57 @@
     </div>
 </div>
 <script type="text/javascript">
+    var editor = "";
+    $(document).ready(function () {
+        editor = CKEDITOR.replace('content');
+    });
     $('#btnCancel').click(function () {
         window.history.back();
     })
-   $('#btnAddOrUpdateNew').click(function (e) {
-       e.preventDefault();
-       var data ={};
-        var formData    = $('#formSubmit').serializeArray();
-        $(formData).each(function (i,v) {
-            data[""+v.name+""] = v.value;
+    $('#btnAddOrUpdateNew').click(function (e) {
+        e.preventDefault();
+        var data = {};
+        var formData = $('#formSubmit').serializeArray();
+        $(formData).each(function (i, v) {
+            data["" + v.name + ""] = v.value;
         });
-        var id  = $('#id').val()
-       if (id == ""){
-           addNew(data);
-       }else{
-           updateNew( data);
-       }
-   });
+        data["content"] = editor.getData();
+        var id = $('#id').val()
+        if (id == "") {
+            addNew(data);
+        } else {
+            updateNew(data);
+        }
+    });
+
     function addNew(data) {
         $.ajax({
-            url:'${APIurl}',
-            type:'POST',
-            contentType:'application/json',
-            data:JSON.stringify(data),
-            dataType:'json',
+            url: '${APIurl}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
             success: function (result) {
-                console.log(result);
+                window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                console.log(error);
+                window.location.href = "${NewURL}?type=edit&message=error_system";
             }
-        })
+        });
     }
+
     function updateNew(data) {
         $.ajax({
-            url:'${APIurl}',
-            type:'PUT',
-            contentType:'application/json',
-            data:JSON.stringify(data),
-            dataType:'json',
+            url: '${APIurl}',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
             success: function (result) {
-                console.log(result);
+                window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=update_success";
             },
             error: function (error) {
-                console.log(error);
+                window.location.href = "${NewURL}?type=edit&message=error_system";
             }
         })
     }

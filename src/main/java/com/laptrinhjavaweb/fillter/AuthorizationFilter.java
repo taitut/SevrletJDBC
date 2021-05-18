@@ -14,7 +14,7 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        this.context=filterConfig.getServletContext();
+        this.context = filterConfig.getServletContext();
     }
 
     @Override
@@ -28,10 +28,10 @@ public class AuthorizationFilter implements Filter {
                 if (model.getRole().getCode().equals(SystemConstant.ADMIN)) {
                     filterChain.doFilter(servletRequest, servletResponse);
                 } else if (model.getRole().getCode().equals(SystemConstant.USER)) {
-                    response.sendRedirect(request.getContextPath()+"/login?action=login&message=not_permission&alert=danger");
+                    response.sendRedirect(request.getContextPath() + "/login?action=login&message=not_permission&alert=danger");
                 }
             } else {
-                response.sendRedirect(request.getContextPath()+"/login?action=login&message=not_login&alert=danger");
+                response.sendRedirect(request.getContextPath() + "/login?action=login&message=not_login&alert=danger");
             }
         } else {
             filterChain.doFilter(servletRequest, servletResponse);

@@ -19,40 +19,41 @@ import com.laptrinhjavaweb.ultils.SessionUtil;
 
 @WebServlet("/api-admin-new")
 public class NewsApi extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Inject
-	private INewsService newsService;
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		News news = HttpUltis.of(request.getReader()).toModel(News.class);
-		news.setCreatedBy(((User) SessionUtil.getInstance().getValue(request,"USER")).getUserName());
-		newsService.save(news);
-		mapper.writeValue(response.getOutputStream(), news);
-	}
+    @Inject
+    private INewsService newsService;
 
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		News UpdateNews = HttpUltis.of(request.getReader()).toModel(News.class);
-		UpdateNews.setModifiedBy(((User) SessionUtil.getInstance().getValue(request,"USER")).getUserName());
-		newsService.update(UpdateNews);
-		mapper.writeValue(response.getOutputStream(),UpdateNews );
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        News news = HttpUltis.of(request.getReader()).toModel(News.class);
+        news.setCreatedBy(((User) SessionUtil.getInstance().getValue(request, "USER")).getUserName());
+        newsService.save(news);
+        mapper.writeValue(response.getOutputStream(), news);
+    }
 
-	}
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        News UpdateNews = HttpUltis.of(request.getReader()).toModel(News.class);
+        UpdateNews.setModifiedBy(((User) SessionUtil.getInstance().getValue(request, "USER")).getUserName());
+        newsService.update(UpdateNews);
+        mapper.writeValue(response.getOutputStream(), UpdateNews);
 
-	
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		News UpdateNews = HttpUltis.of(request.getReader()).toModel(News.class);
-		newsService.delete(UpdateNews.getIds());
-		mapper.writeValue(response.getOutputStream(),"{}" );
-	}
+    }
+
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        News UpdateNews = HttpUltis.of(request.getReader()).toModel(News.class);
+        newsService.delete(UpdateNews.getIds());
+        mapper.writeValue(response.getOutputStream(), "{}");
+    }
 
 
 }

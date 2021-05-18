@@ -8,7 +8,7 @@
       </options>
     </properties>
     <root id="archive" name="new-jdbc-1.0.war">
-      <element id="artifact" artifact-name="new-jdbc" />
+      <element id="artifact" artifact-name="new-jdbc:war exploded" />
     </root>
   </artifact>
 </component>
